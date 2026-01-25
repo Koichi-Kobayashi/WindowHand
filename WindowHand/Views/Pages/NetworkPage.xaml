@@ -1,0 +1,111 @@
+<Page
+    x:Class="WindowHand.Views.Pages.NetworkPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:WindowHand.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="NetworkPage"
+    d:DataContext="{d:DesignInstance local:NetworkPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+    ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Page.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24,16,24,24">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Text="Wi-Fi" />
+                    <TextBlock
+                        Margin="0,6,0,0"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="Wi-Fiまたは全物理アダプタの一覧を表示します。"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+                <ui:Button
+                    Grid.Column="1"
+                    Padding="12,6"
+                    Command="{Binding ViewModel.RefreshCommand, Mode=OneWay}"
+                    Content="更新" />
+            </Grid>
+
+            <ui:ToggleSwitch
+                Margin="0,12,0,0"
+                Content="Wi-Fiのみ表示"
+                IsChecked="{Binding ViewModel.ShowWifiOnly, Mode=TwoWay}" />
+
+            <Grid Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    MinHeight="22"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="読み込み中...">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Opacity" Value="0" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ViewModel.IsLoading}" Value="True">
+                                    <Setter Property="Opacity" Value="1" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBlock
+                    Grid.Row="1"
+                    MinHeight="22"
+                    Margin="0,6,0,0"
+                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                    Text="{Binding ViewModel.ErrorMessage, Mode=OneWay}"
+                    TextWrapping="Wrap" />
+            </Grid>
+
+            <ListView
+                Margin="0,12,0,0"
+                Height="240"
+                ItemsSource="{Binding ViewModel.WifiAdapters, Mode=OneWay}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn
+                            Width="220"
+                            DisplayMemberBinding="{Binding Name}"
+                            Header="名前" />
+                        <GridViewColumn
+                            Width="260"
+                            DisplayMemberBinding="{Binding Description}"
+                            Header="説明" />
+                        <GridViewColumn
+                            Width="140"
+                            DisplayMemberBinding="{Binding NetConnectionId}"
+                            Header="接続名" />
+                        <GridViewColumn
+                            Width="90"
+                            DisplayMemberBinding="{Binding NetEnabledText}"
+                            Header="状態" />
+                        <GridViewColumn
+                            Width="80"
+                            DisplayMemberBinding="{Binding DeviceId}"
+                            Header="ID" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

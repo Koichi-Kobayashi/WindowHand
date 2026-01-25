@@ -1,0 +1,132 @@
+# .cursorrules
+# FastExplorer/Chappy-style WPF rules: WPF-UI / MVVM / Windows tweaks
+# Goal: build a "窓の手" equivalent app (Windows Tweaker) with safe, testable architecture.
+
+version: 1
+
+profile:
+  name: "WPF-UI Windows Tweaker"
+  language: "ja"
+  stack:
+    - ".NET (latest stable available in repo)"
+    - "WPF"
+    - "WPF-UI (Fluent)"
+    - "MVVM (CommunityToolkit.Mvvm)"
+    - "Windows APIs (Registry / PowerShell / Win32 / CIM)"
+  expertise:
+    - "WPF-UI navigation, theming, tray, snackbar, dialogs"
+    - "MVVM: commands, observable properties, messaging"
+    - "Windows settings: registry policies, services, scheduled tasks, UWP/Store apps"
+    - "Packaging: MSIX optional"
+
+goals:
+  - "窓の手のように『カテゴリ別に設定を一覧化 → ワンクリック適用 → 元に戻す』を実現する"
+  - "安全性（バックアップ/復元/最小権限/説明の明確さ）を最優先"
+  - "実装の透明性（何をどう変更するかを UI に明示）"
+  - "各設定は“プラグイン的”に追加できる設計にする"
+
+non_goals:
+  - "怪しい最適化（効果が不明なレジストリ大量変更、非推奨の隠し設定の乱用）"
+  - "ユーザーに説明なしで破壊的変更をする"
+  - "OS内部を改造する類の手法（パッチ、非公式DLL差し替え）"
+
+coding_style:
+  principles:
+    - "MVVM徹底（Viewにロジックを書かない）"
+    - "各“設定項目”は単体でテスト可能に（状態取得/適用/戻す）"
+    - "例外は握りつぶさず、UIには原因と対処を出す"
+    - "同期ブロック禁止（UIスレッドを止めない）。I/Oは必ずasync"
+    - "変更は必ずログ出力し、適用前にプレビューを表示できるようにする"
+  naming:
+    - "View: *Page.xaml / Window"
+    - "ViewModel: *ViewModel"
+    - "Service: *Service"
+    - "Windows設定: *Tweak / *Setting / *Policy"
+  formatting:
+    - "XAMLは読みやすさ優先。スタイル/テンプレは ResourceDictionary に集約"
+    - "WPF-UIのコンポーネントで統一（Snackbar, Dialog, NavigationView 等）"
+
+architecture:
+  layers:
+    - "UI (WPF-UI) -> ViewModels -> Domain (Tweaks) -> Infrastructure (Registry/Win32/PowerShell)"
+  must_have:
+    - "ITweak (設定項目) インターフェイス"
+    - "TweakCategory (カテゴリ) と検索/フィルタ"
+    - "バックアップ/復元（レジストリ/サービス等は最低限 export できる）"
+    - "管理者権限が必要な項目は明示し、必要時だけ昇格"
+    - "Dry-run（何を変更するか）を表示"
+    - "適用履歴（いつ/何を/成功失敗/詳細）"
+  recommended:
+    - "設定の依存関係（AをONにするとBが必要等）"
+    - "プロファイル（おすすめ/ゲーミング/省電力等）"
+
+tweak_contract:
+  # Every tweak must implement this behavior contract.
+  interface:
+    name: "ITweak"
+    members:
+      - "Id: string (stable unique)"
+      - "Title: string (UI label)"
+      - "Description: string (what/why, include risk)"
+      - "Category: string"
+      - "RequiresAdmin: bool"
+      - "GetStateAsync(): TweakState (On/Off/Unsupported/Unknown + details)"
+      - "PlanApplyAsync(target): ChangePlan (human-readable + machine steps)"
+      - "ApplyAsync(plan): ApplyResult"
+      - "PlanRevertAsync(): ChangePlan"
+      - "RevertAsync(plan): ApplyResult"
+  rules:
+    - "GetStateAsync は副作用ゼロ"
+    - "Apply/Revert は必ず Plan を経由（ログ/プレビューのため）"
+    - "Unsupported は OS edition/build 等の判定理由を必ず返す"
+
+windows_safety:
+  rules:
+    - "レジストリ変更は Key/Value/Before/After を記録"
+    - "サービス操作は StartType/Status のBefore/After を記録"
+    - "ポリシー変更は対象スコープ（HKCU/HKLM）を明示"
+    - "失敗時はロールバック可能な場合は自動ロールバック"
+    - "危険度レベル（Safe/Warning/Danger）を全項目に付ける"
+  backup:
+    - "適用前にバックアップ作成（最低: 対象レジストリのexport、またはJSON保存）"
+    - "復元UIを用意（履歴から戻せる）"
+
+ui_guidelines:
+  navigation:
+    - "左: カテゴリ。上: 検索。中央: 設定一覧（トグル/詳細/適用）"
+    - "詳細ペインに『何を変えるか』『戻し方』『影響』を明記"
+  components:
+    - "WPF-UI: NavigationView, Card, ToggleSwitch, InfoBar/Snackbar, Dialog"
+  states:
+    - "Loading/Unsupported/Error を必ず表現（グレーアウト + 理由表示）"
+  copy:
+    - "用語は一貫（例: 適用/元に戻す/バックアップ/復元）"
+    - "危険度が高い操作は確認ダイアログ必須"
+
+testing:
+  unit:
+    - "ITweak の Plan が期待通りの差分を出すか"
+    - "OS条件の判定が正しいか"
+  integration:
+    - "Registry/Service の実操作は feature flag か CIではスキップ"
+  logging:
+    - "ILogger を通す。UIにも“ログをコピー”ボタン"
+
+assistant_behavior:
+  do:
+    - "まず ITweak 1個を雛形として作り、カテゴリ/一覧表示/適用/履歴まで縦に通す"
+    - "必要な権限/副作用/戻し方を常に明記"
+    - "WPF-UIの標準コンポーネントで揃える"
+    - "可能なら Microsoft 公式ドキュメント根拠をコメントや説明に残す"
+  dont:
+    - "一度に大量の設定を実装しない（まず骨格）"
+    - "根拠の薄い最適化を“おすすめ”に入れない"
+    - "UIスレッドでレジストリ/サービス操作をしない"
+
+starter_plan:
+  steps:
+    - "Project skeleton: WPF-UI Navigation + MVVM"
+    - "Domain: ITweak / TweakState / ChangePlan / ApplyResult"
+    - "Infrastructure: RegistryService / ServiceControllerService / PowerShellService"
+    - "UI: Category list + Search + Tweak cards + Detail panel + Apply/Revert + History"
+    - "Add 3 safe tweaks first (HKCU only): e.g. Explorer show file extensions / show hidden files / disable 'Shake to minimize' (if applicable)"

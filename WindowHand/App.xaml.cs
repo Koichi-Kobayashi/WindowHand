@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Reflection;
 using System.Windows.Threading;
 using Microsoft.Extensions.Configuration;
@@ -48,6 +48,16 @@ namespace WindowHand
 
                 services.AddSingleton<DashboardPage>();
                 services.AddSingleton<DashboardViewModel>();
+                services.AddSingleton<SystemPage>();
+                services.AddSingleton<SystemPageViewModel>();
+                services.AddSingleton<DesktopPage>();
+                services.AddSingleton<DesktopPageViewModel>();
+                services.AddSingleton<ExplorerPage>();
+                services.AddSingleton<ExplorerPageViewModel>();
+                services.AddSingleton<NetworkPage>();
+                services.AddSingleton<NetworkPageViewModel>();
+                services.AddSingleton<SecurityPage>();
+                services.AddSingleton<SecurityPageViewModel>();
                 services.AddSingleton<DataPage>();
                 services.AddSingleton<DataViewModel>();
                 services.AddSingleton<SettingsPage>();
