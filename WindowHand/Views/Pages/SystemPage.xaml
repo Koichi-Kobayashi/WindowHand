@@ -15,17 +15,64 @@
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="24,16,24,24">
+    <Grid Margin="24,16,24,24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel>
             <TextBlock
                 FontSize="22"
                 FontWeight="SemiBold"
                 Text="システム" />
             <TextBlock
-                Margin="0,8,0,0"
+                Margin="0,6,0,0"
                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                Text="ここにシステム設定の一覧を配置します。"
+                Text="ms-settings のショートカット一覧です。"
+                TextWrapping="Wrap" />
+            <TextBlock
+                Margin="0,12,0,0"
+                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                Text="{Binding ViewModel.ErrorMessage, Mode=OneWay}"
                 TextWrapping="Wrap" />
         </StackPanel>
-    </ScrollViewer>
+
+        <ListView
+            Grid.Row="1"
+            Margin="0,12,0,0"
+            ItemsSource="{Binding ViewModel.Shortcuts, Mode=OneWay}"
+            ScrollViewer.CanContentScroll="True"
+            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            VirtualizingPanel.IsVirtualizing="True"
+            VirtualizingPanel.VirtualizationMode="Recycling">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        Width="180"
+                        DisplayMemberBinding="{Binding CategoryName}"
+                        Header="カテゴリ" />
+                    <GridViewColumn
+                        Width="220"
+                        DisplayMemberBinding="{Binding Name}"
+                        Header="名前" />
+                    <GridViewColumn
+                        Width="360"
+                        DisplayMemberBinding="{Binding Uri}"
+                        Header="URI" />
+                    <GridViewColumn Width="90" Header="操作">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ui:Button
+                                    Padding="10,4"
+                                    Command="{Binding DataContext.ViewModel.OpenCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                    CommandParameter="{Binding}"
+                                    Content="開く" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
 </Page>

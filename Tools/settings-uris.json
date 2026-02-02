@@ -1,0 +1,149 @@
+﻿{
+  "categories": [
+    {
+      "id": "system",
+      "name": "システム",
+      "items": [
+        { "id": "system", "name": "システム", "uri": "ms-settings:system" },
+        { "id": "display", "name": "ディスプレイ", "uri": "ms-settings:display" },
+        { "id": "display-advanced", "name": "ディスプレイ（詳細）", "uri": "ms-settings:display-advanced" },
+        { "id": "sound", "name": "サウンド", "uri": "ms-settings:sound" },
+        { "id": "notifications", "name": "通知", "uri": "ms-settings:notifications" },
+        { "id": "focus", "name": "集中モード", "uri": "ms-settings:focus" },
+        { "id": "powersleep", "name": "電源とバッテリー", "uri": "ms-settings:powersleep" },
+        { "id": "storage", "name": "ストレージ", "uri": "ms-settings:storage" },
+        { "id": "clipboard", "name": "クリップボード", "uri": "ms-settings:clipboard" },
+        { "id": "multitasking", "name": "マルチタスク", "uri": "ms-settings:multitasking" },
+        { "id": "remote-desktop", "name": "リモート デスクトップ", "uri": "ms-settings:remote-desktop" },
+        { "id": "about", "name": "バージョン情報", "uri": "ms-settings:about" }
+      ]
+    },
+
+    {
+      "id": "personalization",
+      "name": "個人用設定",
+      "items": [
+        { "id": "personalization", "name": "個人用設定", "uri": "ms-settings:personalization" },
+        { "id": "background", "name": "背景", "uri": "ms-settings:personalization-background" },
+        { "id": "colors", "name": "色", "uri": "ms-settings:personalization-colors" },
+        { "id": "themes", "name": "テーマ", "uri": "ms-settings:personalization-themes" },
+        { "id": "lockscreen", "name": "ロック画面", "uri": "ms-settings:lockscreen" },
+        { "id": "taskbar", "name": "タスクバー", "uri": "ms-settings:taskbar" },
+        { "id": "start", "name": "スタート", "uri": "ms-settings:personalization-start" },
+        { "id": "fonts", "name": "フォント", "uri": "ms-settings:fonts" }
+      ]
+    },
+
+    {
+      "id": "network",
+      "name": "ネットワークとインターネット",
+      "items": [
+        { "id": "network", "name": "ネットワーク", "uri": "ms-settings:network" },
+        { "id": "network-status", "name": "状態", "uri": "ms-settings:network-status" },
+        { "id": "wifi", "name": "Wi-Fi", "uri": "ms-settings:network-wifi" },
+        { "id": "ethernet", "name": "イーサネット", "uri": "ms-settings:network-ethernet" },
+        { "id": "vpn", "name": "VPN", "uri": "ms-settings:network-vpn" },
+        { "id": "proxy", "name": "プロキシ", "uri": "ms-settings:network-proxy" },
+        { "id": "advanced", "name": "詳細ネットワーク設定", "uri": "ms-settings:network-advancedsettings" },
+        { "id": "reset", "name": "ネットワークのリセット", "uri": "ms-settings:network-reset" }
+      ]
+    },
+
+    {
+      "id": "apps",
+      "name": "アプリ",
+      "items": [
+        { "id": "appsfeatures", "name": "インストールされているアプリ", "uri": "ms-settings:appsfeatures" },
+        { "id": "appsdefaults", "name": "既定のアプリ", "uri": "ms-settings:appsdefaults" },
+        { "id": "appsstartup", "name": "スタートアップ", "uri": "ms-settings:apps-startup" },
+        { "id": "optionalfeatures", "name": "オプション機能", "uri": "ms-settings:optionalfeatures" }
+      ]
+    },
+
+    {
+      "id": "accounts",
+      "name": "アカウント",
+      "items": [
+        { "id": "accounts", "name": "アカウント", "uri": "ms-settings:accounts" },
+        { "id": "yourinfo", "name": "ユーザー情報", "uri": "ms-settings:accounts-yourinfo" },
+        { "id": "emailaccounts", "name": "メールとアカウント", "uri": "ms-settings:accounts-emailandaccounts" },
+        { "id": "signinoptions", "name": "サインイン オプション", "uri": "ms-settings:accounts-signinoptions" },
+        { "id": "family", "name": "家族とその他のユーザー", "uri": "ms-settings:accounts-family" },
+        { "id": "workplace", "name": "職場または学校へのアクセス", "uri": "ms-settings:accounts-workplace" }
+      ]
+    },
+
+    {
+      "id": "time-language",
+      "name": "時刻と言語",
+      "items": [
+        { "id": "dateandtime", "name": "日付と時刻", "uri": "ms-settings:dateandtime" },
+        { "id": "regionlanguage", "name": "言語と地域", "uri": "ms-settings:regionlanguage" },
+        { "id": "language", "name": "言語", "uri": "ms-settings:language" },
+        { "id": "keyboard", "name": "キーボード", "uri": "ms-settings:keyboard" },
+        { "id": "speech", "name": "音声", "uri": "ms-settings:speech" }
+      ]
+    },
+
+    {
+      "id": "accessibility",
+      "name": "アクセシビリティ",
+      "items": [
+        { "id": "accessibility", "name": "アクセシビリティ", "uri": "ms-settings:easeofaccess" },
+        { "id": "display", "name": "表示", "uri": "ms-settings:easeofaccess-display" },
+        { "id": "cursor", "name": "マウス ポインター", "uri": "ms-settings:easeofaccess-cursor" },
+        { "id": "magnifier", "name": "拡大鏡", "uri": "ms-settings:easeofaccess-magnifier" },
+        { "id": "colorfilter", "name": "カラーフィルター", "uri": "ms-settings:easeofaccess-colorfilter" },
+        { "id": "highcontrast", "name": "ハイコントラスト", "uri": "ms-settings:easeofaccess-highcontrast" },
+        { "id": "narrator", "name": "ナレーター", "uri": "ms-settings:easeofaccess-narrator" },
+        { "id": "keyboard", "name": "キーボード", "uri": "ms-settings:easeofaccess-keyboard" },
+        { "id": "mouse", "name": "マウス", "uri": "ms-settings:easeofaccess-mouse" }
+      ]
+    },
+
+    {
+      "id": "privacy-security",
+      "name": "プライバシーとセキュリティ",
+      "items": [
+        { "id": "privacy", "name": "プライバシー", "uri": "ms-settings:privacy" },
+        { "id": "privacy-general", "name": "全般", "uri": "ms-settings:privacy-general" },
+        { "id": "privacy-location", "name": "位置情報", "uri": "ms-settings:privacy-location" },
+        { "id": "privacy-webcam", "name": "カメラ", "uri": "ms-settings:privacy-webcam" },
+        { "id": "privacy-microphone", "name": "マイク", "uri": "ms-settings:privacy-microphone" },
+        { "id": "privacy-backgroundapps", "name": "バックグラウンド アプリ", "uri": "ms-settings:privacy-backgroundapps" }
+      ]
+    },
+
+    {
+      "id": "windows-security",
+      "name": "Windows セキュリティ",
+      "items": [
+        { "id": "windowssecurity", "name": "Windows セキュリティ", "uri": "ms-settings:windowssecurity" },
+        { "id": "defender", "name": "Microsoft Defender", "uri": "ms-settings:windowsdefender" }
+      ]
+    },
+
+    {
+      "id": "windows-update",
+      "name": "Windows Update",
+      "items": [
+        { "id": "windowsupdate", "name": "Windows Update", "uri": "ms-settings:windowsupdate" },
+        { "id": "history", "name": "更新履歴", "uri": "ms-settings:windowsupdate-history" },
+        { "id": "advancedoptions", "name": "詳細オプション", "uri": "ms-settings:windowsupdate-advancedoptions" },
+        { "id": "optionalupdates", "name": "オプションの更新プログラム", "uri": "ms-settings:windowsupdate-optionalupdates" },
+        { "id": "restartoptions", "name": "再起動のオプション", "uri": "ms-settings:windowsupdate-restartoptions" }
+      ]
+    },
+
+    {
+      "id": "advanced",
+      "name": "開発者・高度な設定",
+      "items": [
+        { "id": "developers", "name": "開発者向け", "uri": "ms-settings:developers" },
+        { "id": "troubleshoot", "name": "トラブルシューティング", "uri": "ms-settings:troubleshoot" },
+        { "id": "recovery", "name": "回復", "uri": "ms-settings:recovery" },
+        { "id": "backup", "name": "バックアップ", "uri": "ms-settings:backup" }
+      ]
+    }
+  ]
+}

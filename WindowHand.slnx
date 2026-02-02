@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="Tools/Tools.csproj" Id="05b09096-4cf6-456c-bc7e-6922de310cc7" />
   <Project Path="WindowHand/WindowHand.csproj" />
 </Solution>
